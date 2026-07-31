@@ -18,6 +18,7 @@ media/
 .idea/
 .DS_Store
 INTERVIEW_NOTES.md
+GITHUB_SETUP.md
 
 # Test/cache
 .coverage
