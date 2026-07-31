@@ -14,7 +14,7 @@ class UserSummarySerializer(serializers.ModelSerializer):
         model = User
         fields = ("id", "username", "email", "first_name", "last_name", "role")
 
-    def get_role(self, obj):
+    def get_role(self, obj: User) -> str | None:
         if obj.is_staff or obj.is_superuser:
             return Profile.Role.ADMIN
         profile = getattr(obj, "profile", None)
@@ -70,10 +70,10 @@ class MeSerializer(UserSummarySerializer):
     class Meta(UserSummarySerializer.Meta):
         fields = UserSummarySerializer.Meta.fields + ("student_id", "registration_number")
 
-    def get_student_id(self, obj):
+    def get_student_id(self, obj: User) -> int | None:
         student = getattr(obj, "student_profile", None)
         return getattr(student, "id", None)
 
-    def get_registration_number(self, obj):
+    def get_registration_number(self, obj: User) -> str | None:
         student = getattr(obj, "student_profile", None)
         return getattr(student, "registration_number", None)

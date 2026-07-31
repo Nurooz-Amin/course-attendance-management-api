@@ -13,6 +13,7 @@ from .serializers import AttendanceSerializer, CourseSerializer, EnrollmentSeria
 
 
 class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
     serializer_class = StudentSerializer
     permission_classes = [StudentAccessPermission]
     search_fields = ("registration_number", "user__username", "user__first_name", "user__last_name", "user__email")
@@ -29,6 +30,7 @@ class StudentViewSet(viewsets.ModelViewSet):
 
 
 class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [CourseAccessPermission]
     search_fields = ("code", "title", "description", "instructor__username", "instructor__first_name", "instructor__last_name")
@@ -57,6 +59,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 
 class EnrollmentViewSet(viewsets.ModelViewSet):
+    queryset = Enrollment.objects.all()
     serializer_class = EnrollmentSerializer
     permission_classes = [EnrollmentAccessPermission]
     search_fields = ("course__code", "course__title", "student__registration_number", "student__user__username")
@@ -85,6 +88,7 @@ class EnrollmentViewSet(viewsets.ModelViewSet):
 
 
 class AttendanceViewSet(viewsets.ModelViewSet):
+    queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
     permission_classes = [AttendanceAccessPermission]
     search_fields = (

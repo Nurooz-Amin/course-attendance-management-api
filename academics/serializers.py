@@ -16,7 +16,7 @@ class StudentSummarySerializer(serializers.ModelSerializer):
         model = Student
         fields = ("id", "registration_number", "name")
 
-    def get_name(self, obj):
+    def get_name(self, obj: Student) -> str:
         return obj.user.get_full_name() or obj.user.username
 
 
@@ -111,6 +111,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         model = Enrollment
         fields = ("id", "course", "course_id", "student", "student_id", "enrolled_on", "active")
         read_only_fields = ("id", "enrolled_on")
+        validators = []
 
     def validate(self, attrs):
         course = attrs.get("course", getattr(self.instance, "course", None))
@@ -153,6 +154,7 @@ class AttendanceSerializer(serializers.ModelSerializer):
             "remarks", "created_at", "updated_at",
         )
         read_only_fields = ("id", "marked_by", "created_at", "updated_at")
+        validators = []
 
     def validate(self, attrs):
         enrollment = attrs.get("enrollment", getattr(self.instance, "enrollment", None))
